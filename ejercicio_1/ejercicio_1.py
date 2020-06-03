@@ -7,6 +7,7 @@ salida = open("salida.txt", "w")
 
 fechasFuente = fuente.read()
 fechas = set(fechasFuente.split('\n'))
+
 fechasValidas = set(fechas.copy())
 fechasInvalidas = set(fechas.copy())
 
@@ -56,7 +57,6 @@ lexer.input(fechasFuente)
 
  # El token analiza cada linea en cada iteracion
 while True:
-
     # El token tiene metodos definidos, si encuentra uno que coincida con fecha, entonces imprimira que es un token
     tok = lexer.token()
     if not tok:
@@ -64,13 +64,15 @@ while True:
     else:
         fechasInvalidas.remove(str(tok.value))
 
-# Impresion en consola de las fechas/tokens incorrectos
-fechasIncorrectas = ""
+# Impresion en consola de las fechas/tokens correctos e incorrectos
+listFechaFuente=list(fechasFuente.split('\n'));
+listFechasInvalidas=list(fechasInvalidas);
 
-for i in fechasInvalidas:
-    fechasIncorrectas += i + ", "
-
-print("Las fechas " + fechasIncorrectas + "son incorrectas")
+for i in range (len(listFechaFuente)):
+    if listFechaFuente[i] in listFechasInvalidas:
+        print(listFechaFuente[i],"error (no cumple con la extension necesaria)")
+    else:
+        print(listFechaFuente[i], "ok")
 
 # Fechas validas en archivo salida ---> Fechas validas = Fechas - Fechas invalidas
 fechasValidas = fechas - fechasInvalidas
@@ -81,6 +83,7 @@ for fecha in fechasValidas:
     while fecha:
         componentes.append(fecha[:2])
         fecha = fecha[2:]
+
 
     salida.write(componentes[0] + componentes[1] + "/" + componentes[2] + "/" + componentes[3] + "\n")
 

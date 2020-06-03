@@ -77,12 +77,12 @@ fechasValidas = fechas - fechasInvalidas
 
 for fecha in fechasValidas:
     componentes = []
+
     while fecha:
         componentes.append(fecha[:2])
         fecha = fecha[2:]
 
-
-    salida.write(componentes[0] + componentes[1] + "/" + componentes[2] + "/" + componentes[3] +" "+componentes[4]+":"+"\n")
+    salida.write(componentes[0] + componentes[1] + "/" + componentes[2] + "/" + componentes[3]+componentes[4]+":"+componentes[5]+componentes[6]+"\n")
 
 fuente.close()
 salida.close()

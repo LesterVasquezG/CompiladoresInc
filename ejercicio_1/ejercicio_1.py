@@ -7,7 +7,6 @@ salida = open("salida.txt", "w")
 
 fechasFuente = fuente.read()
 fechas = set(fechasFuente.split('\n'))
-
 fechasValidas = set(fechas.copy())
 fechasInvalidas = set(fechas.copy())
 
@@ -64,15 +63,11 @@ while True:
     else:
         fechasInvalidas.remove(str(tok.value))
 
-# Impresion en consola de las fechas/tokens correctos e incorrectos
-listFechaFuente=list(fechasFuente.split('\n'));
-listFechasInvalidas=list(fechasInvalidas);
-
-for i in range (len(listFechaFuente)):
-    if listFechaFuente[i] in listFechasInvalidas:
-        print(listFechaFuente[i],"error (no cumple con la extension necesaria)")
-    else:
-        print(listFechaFuente[i], "ok")
+# Impresion en consola de las fechas/tokens incorrectos
+fechasIncorrectas = ""
+for i in fechasInvalidas:
+    fechasIncorrectas += i + ", "
+print("Las fechas " + fechasIncorrectas + "son incorrectas")
 
 # Fechas validas en archivo salida ---> Fechas validas = Fechas - Fechas invalidas
 fechasValidas = fechas - fechasInvalidas

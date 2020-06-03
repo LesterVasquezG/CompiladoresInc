@@ -75,14 +75,18 @@ print("Las fechas y/u horas " + fechasIncorrectas + "son incorrectas")
 # Fechas y horas validas en archivo salida ---> Fechas validas = Fechas - Fechas invalidas
 fechasValidas = fechas - fechasInvalidas
 
-for fecha in fechasValidas:
-    componentes = []
+for fechaCompleta in fechasValidas:
 
-    while fecha:
-        componentes.append(fecha[:2])
-        fecha = fecha[2:]
+    fecha = fechaCompleta.split(" ")[0]
+    hora = fechaCompleta.split(" ")[1]
 
-    salida.write(componentes[0] + componentes[1] + "/" + componentes[2] + "/" + componentes[3]+componentes[4]+":"+componentes[5]+componentes[6]+"\n")
+    componentes = [fecha[0:2], fecha[2:4], fecha[4:6]]
+    texto = componentes[0] + "/" + componentes[1] + "/" + componentes[2] + " "
+
+    componentes = [hora[0:2], hora[2:4]]
+    texto += componentes[0] + ":" + componentes[1] + "\n"
+
+    salida.write(texto)
 
 fuente.close()
 salida.close()

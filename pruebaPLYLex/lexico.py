@@ -1,49 +1,23 @@
 import ply.lex as lex
 from ply.lex import TOKEN
 tokens=(
-    'fecha',
-    'mes',
-    'anio',
-    'dia',
-    'digito',
-    'digitoMes',
-    'digitoDia'
-
+    'numero', #Este token tendra un metodo def
+    'signoMas', #Este token no tendra metodo def, solo se declarara como t_, por lo que al encontrarlo el analizador, este dira que es un signo mas
 );
-#DEFINIMOS LA GRAMATICA
-digito=r'([0-9])';
-digitoMes=r'([0-1])'; #primer digito del mes debe ser 0 o 1
-digitoDia=r'([0-3])';#primer digito del dia debe ser 0 o 3
-
-dia=digitoDia+digito;
-mes=digitoMes+digito;
-anio=digito+digito+digito+digito; # no restringimos el año de inicio
-fecha=anio+mes+dia;
-
-@TOKEN(fecha) #Utilizamos el @token para combinar las gramaticas antes definidas
-def t_fecha(t):
+t_signoMas=r'\+';
+#t_numero=r'\d+'; #borra el metodo def y activa este, hara los mismo
+def t_numero(t):
+    r'\d+' #Aqui esta la gramatica de un numero
     t.value = int(t.value)
     return t
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
 
 def t_error(t):
     print("Caracter ilegal '%s'" % t.value[0])
     t.lexer.skip(1) #Aqui le decimos cuantos caracteres queremos que omita despues del error
 
-#le decimos que ignore el salto de linea
-t_ignore  = ' \n'
-
 #creamos el lexer
 lexer = lex.lex()
-
-#abrimos el archivo
-f = open("entrada.txt",'r')
-data = f.read() #Guardamos el contenido del archivo en una variable
-f.close()
-
+data="123123 +"
 #Le damos como argumento los datos del archivo
 lexer.input(data)
 
